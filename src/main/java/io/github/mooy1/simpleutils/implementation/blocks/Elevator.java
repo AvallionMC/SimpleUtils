@@ -1,21 +1,5 @@
 package io.github.mooy1.simpleutils.implementation.blocks;
 
-import java.util.List;
-
-import javax.annotation.Nonnull;
-
-import org.bukkit.Location;
-import org.bukkit.Material;
-import org.bukkit.Sound;
-import org.bukkit.block.Block;
-import org.bukkit.event.EventHandler;
-import org.bukkit.event.Listener;
-import org.bukkit.event.block.BlockBreakEvent;
-import org.bukkit.event.player.PlayerEvent;
-import org.bukkit.event.player.PlayerMoveEvent;
-import org.bukkit.event.player.PlayerToggleSneakEvent;
-import org.bukkit.inventory.ItemStack;
-
 import com.google.common.collect.BiMap;
 import com.google.common.collect.HashBiMap;
 import io.github.mooy1.infinitylib.common.Events;
@@ -29,6 +13,20 @@ import io.github.thebusybiscuit.slimefun4.utils.tags.SlimefunTag;
 import me.mrCookieSlime.CSCoreLibPlugin.Configuration.Config;
 import me.mrCookieSlime.Slimefun.Objects.handlers.BlockTicker;
 import me.mrCookieSlime.Slimefun.api.BlockStorage;
+import org.bukkit.Location;
+import org.bukkit.Material;
+import org.bukkit.Sound;
+import org.bukkit.block.Block;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.Listener;
+import org.bukkit.event.block.BlockBreakEvent;
+import org.bukkit.event.player.PlayerEvent;
+import org.bukkit.event.player.PlayerMoveEvent;
+import org.bukkit.event.player.PlayerToggleSneakEvent;
+import org.bukkit.inventory.ItemStack;
+
+import javax.annotation.Nonnull;
+import java.util.List;
 
 public final class Elevator extends SlimefunItem implements Listener {
 
@@ -58,7 +56,7 @@ public final class Elevator extends SlimefunItem implements Listener {
             public void tick(Block block, SlimefunItem slimefunItem, Config config) {
                 if (SimpleUtils.slimefunTickCount() % 16 == 0 && block.getY() > block.getWorld().getMinHeight()) {
                     Material type = block.getRelative(0, -1, 0).getType();
-                    if (type.isOccluding() && !SlimefunTag.UNBREAKABLE_MATERIALS.isTagged(type)) {
+                    if (type != Material.SPAWNER && type.isOccluding() && !SlimefunTag.UNBREAKABLE_MATERIALS.isTagged(type) && !SlimefunTag.ORES.isTagged(type)) {
                         block.setType(type);
                     } else {
                         block.setType(getItem().getType());

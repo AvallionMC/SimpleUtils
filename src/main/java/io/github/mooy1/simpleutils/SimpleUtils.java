@@ -1,14 +1,13 @@
 package io.github.mooy1.simpleutils;
 
-import java.io.File;
-
-import org.bukkit.plugin.PluginDescriptionFile;
-import org.bukkit.plugin.java.JavaPluginLoader;
-
 import io.github.mooy1.infinitylib.core.AbstractAddon;
 import io.github.mooy1.infinitylib.metrics.bukkit.Metrics;
 import io.github.mooy1.infinitylib.metrics.charts.SimplePie;
 import io.github.mooy1.simpleutils.implementation.Items;
+import org.bukkit.plugin.PluginDescriptionFile;
+import org.bukkit.plugin.java.JavaPluginLoader;
+
+import java.io.File;
 
 public final class SimpleUtils extends AbstractAddon {
 
@@ -24,6 +23,7 @@ public final class SimpleUtils extends AbstractAddon {
     @Override
     protected void enable() {
         Items.setup(this);
+        getServer().getPluginManager().registerEvents(new ElevatorListener(), this);
         Metrics metrics = new Metrics(this, 10285);
         String ixInstalled = String.valueOf(getServer().getPluginManager().isPluginEnabled("InfinityExpansion"));
         String autoUpdates = String.valueOf(autoUpdatesEnabled());
